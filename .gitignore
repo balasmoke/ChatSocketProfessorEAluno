@@ -1,0 +1,9 @@
+*.class
+nbproject/
+build/
+.netbeans_automatic_build.txt
+.netbeans_update_resources.txt
+build.xml
+dadosbd
+Download errors.txt
+manifest.mf
