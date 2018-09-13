@@ -25,7 +25,7 @@ public class MySql {
                 Class.forName(DRIVER).newInstance();
                 String ip = JOptionPane.showInputDialog(null, "Digite o Ip do Servidor do banco!");
                 ip = ip.length() != 0 ? ip+":3306" : "";
-                URL = "jdbc:mysql://"+ip+":3306/hpgabriel";
+                URL = "jdbc:mysql://"+ip+"/hpgabriel";
                 conexao = DriverManager.getConnection(URL, USER, PSWD);
                 System.out.println("Conexao Aberta");
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
