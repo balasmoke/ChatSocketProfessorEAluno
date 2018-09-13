@@ -5,15 +5,17 @@ public class Sala {
     private int porta;
     private int idMateria;
     private String cpfProfessor;
+    private String ip;
 
     public Sala() {
     }
 
-    public Sala(int idSala, int porta, int idMateria, String cpfProfessor) {
+    public Sala(int idSala, int porta, int idMateria, String cpfProfessor, String ip) {
         this.idSala = idSala;
         this.porta = porta;
         this.idMateria = idMateria;
         this.cpfProfessor = cpfProfessor;
+        this.ip = ip;
     }
 
     public int getIdSala() {
@@ -47,5 +49,12 @@ public class Sala {
     public void setCpfProfessor(String cpfProfessor) {
         this.cpfProfessor = cpfProfessor;
     }
-    
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }    
 }

@@ -41,7 +41,7 @@ public class MenuChatAlunoFase2 extends javax.swing.JFrame {
             comboSala.addItem("Sem Professores no momento!");
         }else{
             for (Sala sala : salas) {
-              comboSala.addItem("Sala:"+sala.getIdSala()+" -"+sala.getPorta()+"- !");
+              comboSala.addItem("Sala:"+sala.getIdSala()+" -"+sala.getPorta()+"-"+sala.getIp()+"- !");
             }
         }
         
@@ -111,9 +111,11 @@ public class MenuChatAlunoFase2 extends javax.swing.JFrame {
         String[] select = comboSala.getSelectedItem().toString().split("-");
         
         int porta = Integer.parseInt(select[1]);
+        String ip = select[2];
         System.out.println(porta+"<-porta|Split[1]->"+select[1]);
+        System.out.println(ip+"<-ip|Split[2]->"+select[2]);
         
-        new ChatSimple(porta,user).setVisible(true);
+        new ChatSimple(ip,porta,user).setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

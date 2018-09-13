@@ -18,8 +18,8 @@ import model.Usuario;
 public class SalaControll {
 
     public void insert(Sala sala) {
-        String query = "INSERT INTO sala (porta,idMateria,cpfProfessor) VALUES (?,?,?)";
-        MySql.executeQuery(query, sala.getPorta(),sala.getIdMateria(),sala.getCpfProfessor());
+        String query = "INSERT INTO sala (porta,idMateria,cpfProfessor,ip) VALUES (?,?,?,?)";
+        MySql.executeQuery(query, sala.getPorta(),sala.getIdMateria(),sala.getCpfProfessor(),sala.getIp());
     }
 
     public ArrayList select() {
@@ -43,7 +43,7 @@ public class SalaControll {
             while (rs.next()) {
                 Sala a = new Sala(rs.getInt("idSala")
                         , rs.getInt("porta"), rs.getInt("idMateria")
-                        , rs.getString("cpfProfessor"));                
+                        , rs.getString("cpfProfessor"), rs.getString("ip"));                
                 lista.add(a);
             }
             rs.close();

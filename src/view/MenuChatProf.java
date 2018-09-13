@@ -1,9 +1,10 @@
 package view;
 
-
 import Control.MateriaControll;
 import Control.SalaControll;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,7 +18,6 @@ import model.Sala;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author gmsil
@@ -29,19 +29,20 @@ public class MenuChatProf extends javax.swing.JFrame {
      */
     private static Usuario user;
     private List<Materia> materias;
+
     public MenuChatProf(Usuario user) {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.user = user;
-        
+
         materias = new ArrayList<>();
         materias = new MateriaControll().select();
-        
+
         comboMaterias.removeAllItems();
         for (Materia materia : materias) {
             comboMaterias.addItem(materia.getMateria_nome());
         }
-        
+
     }
 
     /**
@@ -103,36 +104,41 @@ public class MenuChatProf extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            
+
             Sala sala = new Sala();
-            
+
             sala.setCpfProfessor(user.getUsuario_cpf());
             for (Materia materia : materias) {
                 if (materia.getMateria_nome().equals(comboMaterias.getSelectedItem().toString())) {
                     sala.setIdMateria(materia.getMateria_id());
                 }
             }
-            int porta = 30000+sala.getIdMateria();
-            
+            int porta = 30000 + sala.getIdMateria();
+
             List<Sala> salas = new SalaControll().select();
             boolean repetidor = false;
-            
-            do{ 
+
+            do {
                 for (Sala sala1 : salas) {
                     if (sala1.getPorta() == porta) {
                         porta++;
                         repetidor = true;
                     }
                 }
-            }while (repetidor);
-            
+            } while (repetidor);
+
             sala.setPorta(porta);
-            
+            try {
+                sala.setIp(InetAddress.getLocalHost().getHostAddress());
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             new SalaControll().insert(sala);
-            
+
             new ServidorSimple(sala.getPorta()).ligaServer();
-            
-            new ChatSimple(sala.getPorta(),user).setVisible(true);
+
+            new ChatSimple("localhost",sala.getPorta(), user).setVisible(true);
             dispose();
         } catch (IOException ex) {
             Logger.getLogger(MenuChatProf.class.getName()).log(Level.SEVERE, null, ex);

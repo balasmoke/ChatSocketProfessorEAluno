@@ -27,20 +27,23 @@ public class ChatSimple extends javax.swing.JFrame {
     DataInputStream entrada = null;
     DataOutputStream saida = null;
     private static int porta = 0;
+    private static String ip = "localhost";
     private String name;
 
     private static Usuario user;
-    public ChatSimple(int porta, Usuario user) {
+    public ChatSimple(String ip,int porta, Usuario user) {
         this.porta = porta;
+        this.ip = ip;
         try {
             this.name = user.getUsuario_nome();
             if (user.getUsuario_tipo().equals("0")) {
                 this.name = this.name+"[PROFESSOR]";
             }
-            servidor = new Socket("localhost", porta);
+            servidor = new Socket(ip, porta);
             entrada = new DataInputStream(servidor.getInputStream());
             saida = new DataOutputStream(servidor.getOutputStream());
             this.user = user;
+            
         } catch (IOException ex) {
             Logger.getLogger(ChatSimple.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -189,7 +192,7 @@ public class ChatSimple extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChatSimple(porta,user).setVisible(true);
+                new ChatSimple(ip,porta,user).setVisible(true);
             }
         });
     }

@@ -8,12 +8,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 
 public class MySql {
 
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql:///hpgabriel";
+    private static  String URL = "jdbc:mysql:///hpgabriel";
     private static final String USER = "root";
     private static final String PSWD = "";
     private static Connection conexao = null;
@@ -22,6 +23,9 @@ public class MySql {
         if (conexao == null) {
             try {
                 Class.forName(DRIVER).newInstance();
+                String ip = JOptionPane.showInputDialog(null, "Digite o Ip do Servidor do banco!");
+                ip = ip.length() != 0 ? ip+":3306" : "";
+                URL = "jdbc:mysql://"+ip+":3306/hpgabriel";
                 conexao = DriverManager.getConnection(URL, USER, PSWD);
                 System.out.println("Conexao Aberta");
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
